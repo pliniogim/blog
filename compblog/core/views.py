@@ -2,7 +2,7 @@
 
 from flask import render_template, request, Blueprint
 
-core = Blueprint('core', __nam__)
+core = Blueprint('core', __name__)
 
 
 @core.route('/')
