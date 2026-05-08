@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d814100-33e5-4f14-a23a-0b533990b87b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/core/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/posts/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/posts/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/posts/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/static/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/static/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/users/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/users/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compblog/users/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2d814100-33e5-4f14-a23a-0b533990b87b" name="Changes" comment="bootstrap" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,6 +57,15 @@
       <option name="presentableId" value="Default" />
       <updated>1778171629124</updated>
     </task>
+    <task id="LOCAL-00001" summary="bootstrap">
+      <option name="closed" value="true" />
+      <created>1778183660953</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778183660953</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -87,6 +78,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="bootstrap" />
+    <option name="LAST_COMMIT_MESSAGE" value="bootstrap" />
   </component>
   <component name="WfRunsListSearchHistory"><![CDATA[{
   "history": [
