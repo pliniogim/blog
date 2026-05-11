@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block  %}
+    <h1 class="mb-4">{{ user.username }}'s Blog Posts</h1>
+    {% for blog_post in blog_posts.items %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + blog_post.author.image_file) }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('users.user_posts', username=blog_post.author.username) }}">{{ blog_post.author.username }}</a>
+                    <small class="text-muted">{{ blog_post.date.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('blog_posts.blog_post', blog_post_id=blog_post.id) }}">{{ blog_post.title }}</a></h2>     
+            </div>
+        </article>
+    {% endfor %}
+    <div class="pagination justify-content-center mb-4">
+        {% if blog_posts.has_prev %}
+            <a class="btn btn-outline-primary mr-1" href="{{ url_for('users.user_posts', username=user.username, page=blog_posts.prev_num) }}">&larr; Previous</a>
+        {% else %}
+            <a class="btn btn-outline-primary mr-1 disabled" href="#">&larr; Previous</a>
+        {% endif %}
+        {% if blog_posts.has_next %}
+            <a class="btn btn-outline-primary" href="{{ url_for('users.user_posts', username=user.username, page=blog_posts.next_num) }}">Next &rarr;</a>
+        {% else %}
+            <a class="btn btn-outline-primary disabled" href="#">Next &rarr;</a>
+        {% endif %}         
+    </div>     
+{% endblock  %}

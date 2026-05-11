@@ -1,0 +1,33 @@
+{% comment %}
+    # templates/account.html
+{% endcomment %}
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>Account Page</h1>
+        <p>This is {{ current_user.username }}'s account page. You can update your account information here.</p>
+        <img class="profile-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture">
+        <p><a href="{{ url_for('users.update_account') }}" class="btn btn-info mt-3">Update Account</a></p>
+        <p><a href="{{ url_for('users.logout') }}" class="btn btn-secondary mt-3">Logout</a></p>
+    </div>  
+    <div class="container">
+       <form class="mb-4" method="POST" action="{{ url_for('users.update_account') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+    </div>  
+
+
+
+
+{% endblock %}
