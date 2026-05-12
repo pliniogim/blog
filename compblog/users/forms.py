@@ -16,22 +16,20 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    pass_confirm = PasswordField('Confirm Password', 
-                                 validators=[DataRequired(), EqualTo('password', message="Passwords must match")])
-    submit = SubmitField('Register')
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    username = StringField('UserName',validators=[DataRequired()])
+    password = PasswordField('Password',validators=[DataRequired(),EqualTo('pass_confirm',message='Passwords must match!')])
+    pass_confirm = PasswordField('Confirm Password',validators=[DataRequired()])
+    submit = SubmitField('Register!')
 
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('That username is taken. Please choose a different one.')
+    def check_email(self,field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Your email has been registered already!')
 
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user:
-            raise ValidationError('That email is taken. Please choose a different one.')
+    def check_username(self,field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('Your username has been registered already!')
+
         
 class UpdateUserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])

@@ -2,7 +2,7 @@
 
 from flask import render_template, url_for, flash, redirect, request,Blueprint  
 from flask_login import login_user, current_user, logout_user, login_required
-from compblog import db, bcrypt
+from compblog import db
 from compblog.models import User,BlogPost
 from compblog.users.forms import RegistrationForm, LoginForm, UpdateUserForm
 from compblog.users.picture_handler import add_profile_pic
@@ -13,27 +13,38 @@ users = Blueprint('users', __name__)
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(email=form.email.data,
+                    username=form.username.data,
+                    password=form.password.data)
+
         db.session.add(user)
         db.session.commit()
-        flash(f'Account created for {form.username.data}!', 'success')
+        flash('Thanks for registration!')
         return redirect(url_for('users.login'))
-    return render_template('register.html', form=form)
+
+    return render_template('register.html',form=form)
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
+
     form = LoginForm()
     if form.validate_on_submit():
+
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+
+        if user.check_password(form.password.data):
+
             login_user(user)
-            flash('You have been logged in!', 'success')
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('core.index'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form)
+            flash('Log in Success!')
+
+            next = request.args.get('next')
+
+            if next ==None or not next[0]=='/':
+                next = url_for('core.index')
+
+            return redirect(next)
+
+    return render_template('login.html',form=form)
 
         
 @users.route('/logout')
@@ -43,22 +54,29 @@ def logout():
 
 @users.route('/account', methods=['GET', 'POST'])
 @login_required
-def account():      
+def account():
+
     form = UpdateUserForm()
+
     if form.validate_on_submit():
+
         if form.picture.data:
-            picture_file = add_profile_pic(form.picture.data, current_user.username)
-            current_user.image_file = picture_file
+            username = current_user.username
+            pic = add_profile_pic(form.picture.data,username)
+            current_user.profile_image = pic
+
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('Your account has been updated!', 'success')
+        flash('User Account Updated')
         return redirect(url_for('users.account'))
+
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+    profile_image = url_for('static', filename='profile_pics/' + current_user.profile_image)
+    return render_template('account.html', profile_image=profile_image, form=form)
 
 @users.route('/<username>')
 def user_posts(username):
