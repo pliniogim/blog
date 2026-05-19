@@ -2,12 +2,13 @@
 
 import os
 from flask import Flask
-from compblog.core.views import core
-from compblog.error_pages.handlers import error_pages
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-
+from compblog.core.views import core
+from compblog.users.views import users
+from compblog.posts.views import blog_posts
+from compblog.error_pages.handlers import error_pages
 
 
 app = Flask(__name__)
@@ -33,11 +34,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'users.login'
 
-
-from compblog.core.views import core
-from compblog.users.views import users
-from compblog.posts.views import blog_posts
-from compblog.error_pages.handlers import error_pages
 
 app.register_blueprint(core)
 app.register_blueprint(users)
