@@ -1,5 +1,7 @@
 # users/views.py
 
+from signal import pause
+
 from flask import render_template, url_for, flash, redirect, request,Blueprint  
 from flask_login import login_user, current_user, logout_user, login_required
 from compblog import db
@@ -16,7 +18,14 @@ def register():
         user = User(email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)
-
+        if email_exists := User.query.filter_by(email=form.email.data).first():
+            flash('Email already exists. Please choose a different one.')
+            return redirect(url_for('users.register'))
+        
+        if username_exists := User.query.filter_by(username=form.username.data).first():
+            flash('Username already exists. Please choose a different one.')
+            return redirect(url_for('users.register'))  
+        
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registration!')
